@@ -1,0 +1,1879 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lego.Ev3.Desktop</name>
+    </assembly>
+    <members>
+        <member name="T:Lego.Ev3.Core.Brick">
+            <summary>
+            Main EV3 brick interface
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Brick.#ctor(Lego.Ev3.Core.ICommunication)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="comm">Object implementing the <see cref="T:Lego.Ev3.Core.ICommunication"/> interface for talking to the brick</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Brick.#ctor(Lego.Ev3.Core.ICommunication,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="comm">Object implementing the <see cref="T:Lego.Ev3.Core.ICommunication"/> interface for talking to the brick</param>
+            <param name="alwaysSendEvents">Send events when data changes, or at every poll</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Brick.ConnectAsync">
+            <summary>
+            Connect to the EV3 brick.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Brick.ConnectAsync(System.TimeSpan)">
+            <summary>
+            Connect to the EV3 brick with a specified polling time.
+            </summary>
+            <param name="pollingTime">The period to poll the device status.  Set to TimeSpan.Zero to disable polling.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Brick.Disconnect">
+            <summary>
+            Disconnect from the EV3 brick
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.LcdWidth">
+            <summary>
+            Width of LCD screen
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.LcdHeight">
+            <summary>
+            Height of LCD screen
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.TopLineHeight">
+            <summary>
+            Height of status bar
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.Ports">
+            <summary>
+            Input and output ports on LEGO EV3 brick
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.Buttons">
+            <summary>
+            Buttons on the face of the LEGO EV3 brick
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.DirectCommand">
+            <summary>
+            Send "direct commands" to the EV3 brick.  These commands are executed instantly and are not batched.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.SystemCommand">
+            <summary>
+            Send "system commands" to the EV3 brick.  These commands are executed instantly and are not batched.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Brick.BatchCommand">
+            <summary>
+            Send a batch command of multiple direct commands at once.  Call the <see cref="M:Lego.Ev3.Core.Command.Initialize(Lego.Ev3.Core.CommandType)"/> method with the proper <see cref="T:Lego.Ev3.Core.CommandType"/> to set the type of command the batch should be executed as.
+            </summary>
+        </member>
+        <member name="E:Lego.Ev3.Core.Brick.BrickChanged">
+            <summary>
+            Event that is fired when a port is changed
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.BrickButtons">
+            <summary>
+            Buttons on the face of the LEGO EV3 brick
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Up">
+            <summary>
+            Up button
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Down">
+            <summary>
+             Down button
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Left">
+            <summary>
+            Left button
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Right">
+            <summary>
+            Right button
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Back">
+            <summary>
+             Back button
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickButtons.Enter">
+            <summary>
+            Enter button
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.BrickChangedEventArgs">
+            <summary>
+            Arguments for PortsChanged event
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickChangedEventArgs.Ports">
+            <summary>
+            A map of all ports on the EV3 brick
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.BrickChangedEventArgs.Buttons">
+            <summary>
+            Buttons on the face of the LEGO EV3 brick
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.Command">
+            <summary>
+            Command or chain of commands to be written to the EV3 brick
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.Initialize(Lego.Ev3.Core.CommandType)">
+            <summary>
+            Start a new command of a specific type
+            </summary>
+            <param name="commandType">The type of the command to start</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.Initialize(Lego.Ev3.Core.CommandType,System.UInt16,System.Int32)">
+            <summary>
+            Start a new command of a speicifc type with a global and/or local buffer on the EV3 brick
+            </summary>
+            <param name="commandType">The type of the command to start</param>
+            <param name="globalSize">The size of the global buffer in bytes (maximum of 1024 bytes)</param>
+            <param name="localSize">The size of the local buffer in bytes (maximum of 64 bytes)</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StartMotor(Lego.Ev3.Core.OutputPort)">
+            <summary>
+            Start the motor(s) based on previous commands
+            </summary>
+            <param name="ports">Port or ports to apply the command to.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtPower(Lego.Ev3.Core.OutputPort,System.Int32)">
+            <summary>
+            Turns the specified motor at the specified power
+            </summary>
+            <param name="ports">Port or ports to apply the command to.</param>
+            <param name="power">The amount of power to apply to the specified motors (-100% to 100%).</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtSpeed(Lego.Ev3.Core.OutputPort,System.Int32)">
+            <summary>
+            Turn the specified motor at the specified speed.
+            </summary>
+            <param name="ports">Port or ports to apply the command to.</param>
+            <param name="speed">The speed to apply to the specified motors (-100% to 100%).</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StepMotorAtPower(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified power for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="steps">The number of steps to turn the motor.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StepMotorAtPower(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified power for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="rampUpSteps"></param>
+            <param name="constantSteps"></param>
+            <param name="rampDownSteps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StepMotorAtSpeed(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified speed for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The speed at which to turn the motor (-100% to 100%).</param>
+            <param name="steps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StepMotorAtSpeed(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified speed for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The speed at which to turn the motor (-100% to 100%).</param>
+            <param name="rampUpSteps"></param>
+            <param name="constantSteps"></param>
+            <param name="rampDownSteps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtPowerForTime(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified power for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="milliseconds">Number of milliseconds to run at constant power.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtPowerForTime(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified power for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="msRampUp">Number of milliseconds to get up to power.</param>
+            <param name="msConstant">Number of milliseconds to run at constant power.</param>
+            <param name="msRampDown">Number of milliseconds to power down to a stop.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtSpeedForTime(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified speed for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="milliseconds">Number of milliseconds to run at constant speed.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TurnMotorAtSpeedForTime(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified speed for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The power at which to turn the motor (-100% to 100%).</param>
+            <param name="msRampUp">Number of milliseconds to get up to speed.</param>
+            <param name="msConstant">Number of milliseconds to run at constant speed.</param>
+            <param name="msRampDown">Number of milliseconds to slow down to a stop.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.SetMotorPolarity(Lego.Ev3.Core.OutputPort,Lego.Ev3.Core.Polarity)">
+            <summary>
+            Append the Set Polarity command to an existing Command object
+            </summary>
+            <param name="ports">Port or ports to change polarity</param>
+            <param name="polarity">The new polarity (direction) value</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StepMotorSync(Lego.Ev3.Core.OutputPort,System.Int32,System.Int16,System.UInt32,System.Boolean)">
+            <summary>
+            Synchronize stepping of motors.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <param name="speed">Speed to turn the motor(s). (-100 to 100)</param>
+            <param name="turnRatio">The turn ratio to apply. (-200 to 200)</param>
+            <param name="step">The number of steps to turn the motor(s).</param>
+            <param name="brake">Brake or coast at the end.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.TimeMotorSync(Lego.Ev3.Core.OutputPort,System.Int32,System.Int16,System.UInt32,System.Boolean)">
+            <summary>
+            Synchronize timing of motors.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <param name="speed">Speed to turn the motor(s). (-100 to 100)</param>
+            <param name="turnRatio">The turn ratio to apply. (-200 to 200)</param>
+            <param name="time">The time to turn the motor(s).</param>
+            <param name="brake">Brake or coast at the end.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.StopMotor(Lego.Ev3.Core.OutputPort,System.Boolean)">
+            <summary>
+            Append the Stop Motor command to an existing Command object
+            </summary>
+            <param name="ports">Port or ports to stop</param>
+            <param name="brake">Apply the brake at the end of the command</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.ClearAllDevices">
+            <summary>
+            Append the Clear All Devices command to an existing Command object
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.ClearChanges(Lego.Ev3.Core.InputPort)">
+            <summary>
+            Append the Clear Changes command to an existing Command object
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.PlayTone(System.Int32,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Play Tone command to an existing Command object
+            </summary>
+            <param name="volume">Volme to play the tone (0-100)</param>
+            <param name="frequency">Frequency of the tone in hertz</param>
+            <param name="duration">Duration of the tone in milliseconds</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.PlaySound(System.Int32,System.String)">
+            <summary>
+            Append the Play Sound command to an existing Command object
+            </summary>
+            <param name="volume">Volume to play the sound</param>
+            <param name="filename">Filename on the Brick of the sound to play</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.GetFirwmareVersion(System.UInt32,System.UInt32)">
+            <summary>
+            Append the Get Firmware Version command to an existing Command object
+            </summary>
+            <param name="maxLength">Maximum length of string to be returned</param>
+            <param name="index">Index at which the data should be returned inside of the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.IsBrickButtonPressed(Lego.Ev3.Core.BrickButton,System.Int32)">
+            <summary>
+            Add the Is Brick Pressed command to an existing Command object
+            </summary>
+            <param name="button">Button to check</param>
+            <param name="index">Index at which the data should be returned inside of the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.SetLedPattern(Lego.Ev3.Core.LedPattern)">
+            <summary>
+            Append the Set LED Pattern command to an existing Command object
+            </summary>
+            <param name="ledPattern">The LED pattern to display</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.CleanUI">
+            <summary>
+            Append the Clean UI command to an existing Command object
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawLine(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Draw Line command to an existing Command object
+            </summary>
+            <param name="color">Color of the line</param>
+            <param name="x0">X start</param>
+            <param name="y0">Y start</param>
+            <param name="x1">X end</param>
+            <param name="y1">Y end</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawPixel(Lego.Ev3.Core.Color,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Draw Pixel command to an existing Command object
+            </summary>
+            <param name="color">Color of the pixel</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawRectangle(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.Boolean)">
+            <summary>
+            Append the Draw Rectangle command to an existing Command object
+            </summary>
+            <param name="color">Color of the rectangle</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="width">Width of rectangle</param>
+            <param name="height">Height of the rectangle</param>
+            <param name="filled">Draw a filled or empty rectangle</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawInverseRectangle(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Draw Inverse Rectangle command to an existing Command object
+            </summary>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="width">Width of rectangle</param>
+            <param name="height">Height of rectangle</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawCircle(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.Boolean)">
+            <summary>
+            Append the Draw Circle command to an existing Command object
+            </summary>
+            <param name="color">Color of the circle</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="radius">Radius of circle</param>
+            <param name="filled">Draw a filled or empty circle</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawText(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.String)">
+            <summary>
+            Append the Draw Text command to an existing Command object
+            </summary>
+            <param name="color">Color of the text</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="text">Text to draw</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawFillWindow(Lego.Ev3.Core.Color,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Draw Fill Window command to an existing Command object
+            </summary>
+            <param name="color">The color to fill</param>
+            <param name="y0">Y start</param>
+            <param name="y1">Y end</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawImage(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.String)">
+            <summary>
+            Append the Draw Image command to an existing Command object
+            </summary>
+            <param name="color">The color of the image to draw</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="devicePath">Filename on the brick of the image to draw</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.SelectFont(Lego.Ev3.Core.FontType)">
+            <summary>
+            Append the Select Font command to an existing Command object
+            </summary>
+            <param name="fontType">The font to select</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.EnableTopLine(System.Boolean)">
+            <summary>
+            Append the Enable Top Line command to an existing Command object
+            </summary>
+            <param name="enabled">Enable/disable the top status bar line</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DrawDottedLine(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Append the Draw Dotted Line command to an existing Command object
+            </summary>
+            <param name="color">The color of the line</param>
+            <param name="x0">X start</param>
+            <param name="y0">Y start</param>
+            <param name="x1">X end</param>
+            <param name="y1">Y end</param>
+            <param name="onPixels">Number of pixels the line is on</param>
+            <param name="offPixels">Number of pixels the line is off</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.UpdateUI">
+            <summary>
+            Append the Update UI command to an existing Command object
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.DeleteFile(System.String)">
+            <summary>
+            Append the Delete File command to an existing Command object
+            </summary>
+            <param name="devicePath">Filename on the brick to delete</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.CreateDirectory(System.String)">
+            <summary>
+            Append the Create Directory command to an existing Command object
+            </summary>
+            <param name="devicePath">Directory name on the brick to create</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.GetTypeMode(Lego.Ev3.Core.InputPort,System.UInt32,System.UInt32)">
+            <summary>
+            Append the Get Type/Mode command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="typeIndex">The index to hold the Type value in the global buffer</param>
+            <param name="modeIndex">The index to hold the Mode value in the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.ReadySI(Lego.Ev3.Core.InputPort,System.Int32,System.Int32)">
+            <summary>
+            Append the Ready SI command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode to read the data as</param>
+            <param name="index">The index to hold the return value in the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.ReadyRaw(Lego.Ev3.Core.InputPort,System.Int32,System.Int32)">
+            <summary>
+            Append the Ready Raw command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode to query the value as</param>
+            <param name="index">The index in the global buffer to hold the return value</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.ReadyPercent(Lego.Ev3.Core.InputPort,System.Int32,System.Int32)">
+            <summary>
+            Append the Ready Percent command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode to query the value as</param>
+            <param name="index">The index in the global buffer to hold the return value</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.GetDeviceName(Lego.Ev3.Core.InputPort,System.Int32,System.Int32)">
+            <summary>
+            Append the Get Device Name command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="bufferSize">Size of the buffer to hold the returned data</param>
+            <param name="index">Index to the position of the returned data in the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.GetModeName(Lego.Ev3.Core.InputPort,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Append the Get Mode Name command to an existing Command object
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode of the name to get</param>
+            <param name="bufferSize">Size of the buffer to hold the returned data</param>
+            <param name="index">Index to the position of the returned data in the global buffer</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Command.SendCommandAsync">
+            <summary>
+            End and send a Command to the EV3 brick.
+            </summary>
+            <returns>A byte array containing the response from the brick, if any.</returns>
+        </member>
+        <member name="T:Lego.Ev3.Core.ReportReceivedEventArgs">
+            <summary>
+            Event arguments for the ReportReceived event.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.ReportReceivedEventArgs.Report">
+            <summary>
+            Byte array of the data received from the EV3 brick.
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.DirectCommand">
+            <summary>
+            Direct commands for the EV3 brick
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtPowerAsync(Lego.Ev3.Core.OutputPort,System.Int32)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified power.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100 to 100).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtSpeedAsync(Lego.Ev3.Core.OutputPort,System.Int32)">
+            <summary>
+            Turn the specified motor at the specified speed.
+            </summary>
+            <param name="ports">Port or ports to apply the command to.</param>
+            <param name="speed">The speed to apply to the specified motors (-100 to 100).</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StepMotorAtPowerAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified power for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100 to 100).</param>
+            <param name="steps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StepMotorAtPowerAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified power for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100 to 100).</param>
+            <param name="rampUpSteps"></param>
+            <param name="constantSteps"></param>
+            <param name="rampDownSteps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StepMotorAtSpeedAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified speed for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The speed at which to turn the motor (-100 to 100).</param>
+            <param name="steps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StepMotorAtSpeedAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Step the motor connected to the specified port or ports at the specified speed for the specified number of steps.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The speed at which to turn the motor (-100 to 100).</param>
+            <param name="rampUpSteps"></param>
+            <param name="constantSteps"></param>
+            <param name="rampDownSteps"></param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtPowerForTimeAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified power for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100 to 100).</param>
+            <param name="milliseconds">Number of milliseconds to run at constant power.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtPowerForTimeAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified power for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="power">The power at which to turn the motor (-100 to 100).</param>
+            <param name="msRampUp">Number of milliseconds to get up to power.</param>
+            <param name="msConstant">Number of milliseconds to run at constant power.</param>
+            <param name="msRampDown">Number of milliseconds to power down to a stop.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtSpeedForTimeAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified speed for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The power at which to turn the motor (-100 to 100).</param>
+            <param name="milliseconds">Number of milliseconds to run at constant speed.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TurnMotorAtSpeedForTimeAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
+            <summary>
+            Turn the motor connected to the specified port or ports at the specified speed for the specified times.
+            </summary>
+            <param name="ports">A specific port or Ports.All.</param>
+            <param name="speed">The power at which to turn the motor (-100 to 100).</param>
+            <param name="msRampUp">Number of milliseconds to get up to speed.</param>
+            <param name="msConstant">Number of milliseconds to run at constant speed.</param>
+            <param name="msRampDown">Number of milliseconds to slow down to a stop.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.SetMotorPolarityAsync(Lego.Ev3.Core.OutputPort,Lego.Ev3.Core.Polarity)">
+            <summary>
+            Set the polarity (direction) of a motor.
+            </summary>
+            <param name="ports">Port or ports to change polarity</param>
+            <param name="polarity">The new polarity (direction) value</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StartMotorAsync(Lego.Ev3.Core.OutputPort)">
+            <summary>
+            Start motors on the specified ports.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StepMotorSyncAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.Int16,System.UInt32,System.Boolean)">
+            <summary>
+            Synchronize stepping of motors.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <param name="speed">Speed to turn the motor(s).</param>
+            <param name="turnRatio">The turn ratio to apply.</param>
+            <param name="step">The number of steps to turn the motor(s).</param>
+            <param name="brake">Brake or coast at the end.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.TimeMotorSyncAsync(Lego.Ev3.Core.OutputPort,System.Int32,System.Int16,System.UInt32,System.Boolean)">
+            <summary>
+            Synchronize timing of motors.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <param name="speed">Speed to turn the motor(s).</param>
+            <param name="turnRatio">The turn ratio to apply.</param>
+            <param name="time">The time to turn the motor(s).</param>
+            <param name="brake">Brake or coast at the end.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.StopMotorAsync(Lego.Ev3.Core.OutputPort,System.Boolean)">
+            <summary>
+            Stops motors on the specified ports.
+            </summary>
+            <param name="ports">The port or ports to which the stop command will be sent.</param>
+            <param name="brake">Apply brake to motor at end of routine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.ClearAllDevicesAsync">
+            <summary>
+            Resets all ports and devices to defaults.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.ClearChangesAsync(Lego.Ev3.Core.InputPort)">
+            <summary>
+            Clears changes on specified port
+            </summary>
+            <param name="port">The port to clear</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.PlayToneAsync(System.Int32,System.UInt16,System.UInt16)">
+            <summary>
+            Plays a tone of the specified frequency for the specified time.
+            </summary>
+            <param name="volume">Volume of tone (0-100).</param>
+            <param name="frequency">Frequency of tone, in hertz.</param>
+            <param name="duration">Duration to play tone, in milliseconds.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.PlaySoundAsync(System.Int32,System.String)">
+            <summary>
+            Play a sound file stored on the EV3 brick
+            </summary>
+            <param name="volume">Volume of the sound (0-100)</param>
+            <param name="filename">Filename of sound stored on brick, without the .RSF extension</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.GetFirmwareVersionAsync">
+            <summary>
+            Return the current version number of the firmware running on the EV3 brick.
+            </summary>
+            <returns>Current firmware version.</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.IsBrickButtonPressedAsync(Lego.Ev3.Core.BrickButton)">
+            <summary>
+            Returns whether the specified BrickButton is pressed
+            </summary>
+            <param name="button">Button on the face of the EV3 brick</param>
+            <returns>Whether or not the button is pressed</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.SetLedPatternAsync(Lego.Ev3.Core.LedPattern)">
+            <summary>
+            Set EV3 brick LED pattern
+            </summary>
+            <param name="ledPattern">Pattern to display on LED</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawLineAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Draw a line on the EV3 LCD screen
+            </summary>
+            <param name="color">Color of the line</param>
+            <param name="x0">X start</param>
+            <param name="y0">Y start</param>
+            <param name="x1">X end</param>
+            <param name="y1">Y end</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawPixelAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16)">
+            <summary>
+            Draw a single pixel
+            </summary>
+            <param name="color">Color of the pixel</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawRectangleAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.Boolean)">
+            <summary>
+            Draw a rectangle
+            </summary>
+            <param name="color">Color of the rectangle</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="width">Width of rectangle</param>
+            <param name="height">Height of rectangle</param>
+            <param name="filled">Filled or empty</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawInverseRectangleAsync(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Draw a filled rectangle, inverting the pixels underneath it
+            </summary>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="width">Width of the rectangle</param>
+            <param name="height">Height of the rectangle</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawCircleAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.Boolean)">
+            <summary>
+            Draw a circle
+            </summary>
+            <param name="color">Color of the circle</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="radius">Radius of the circle</param>
+            <param name="filled">Filled or empty</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawTextAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.String)">
+            <summary>
+            Write a string to the screen
+            </summary>
+            <param name="color">Color of the text</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="text">Text to draw</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawDottedLineAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Draw a dotted line
+            </summary>
+            <param name="color">Color of dotted line</param>
+            <param name="x0">X start</param>
+            <param name="y0">Y start</param>
+            <param name="x1">X end</param>
+            <param name="y1">Y end</param>
+            <param name="onPixels">Number of pixels the line is drawn</param>
+            <param name="offPixels">Number of pixels the line is empty</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawFillWindowAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16)">
+            <summary>
+            Fills the width of the screen between the provided Y coordinates
+            </summary>
+            <param name="color">Color of the fill</param>
+            <param name="y0">Y start</param>
+            <param name="y1">Y end</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.DrawImageAsync(Lego.Ev3.Core.Color,System.UInt16,System.UInt16,System.String)">
+            <summary>
+            Draw an image to the LCD screen
+            </summary>
+            <param name="color">Color of the image pixels</param>
+            <param name="x">X position</param>
+            <param name="y">Y position</param>
+            <param name="devicePath">Path to the image on the EV3 brick</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.EnableTopLineAsync(System.Boolean)">
+            <summary>
+            Enable or disable the top status bar
+            </summary>
+            <param name="enabled">Enabled or disabled</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.SelectFontAsync(Lego.Ev3.Core.FontType)">
+            <summary>
+            Select the font for text drawing
+            </summary>
+            <param name="fontType">Type of font to use</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.CleanUIAsync">
+            <summary>
+            Clear the entire screen
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.UpdateUIAsync">
+            <summary>
+            Refresh the EV3 LCD screen
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.GetTypeModeAsync(Lego.Ev3.Core.InputPort)">
+            <summary>
+            Get the type and mode of the device attached to the specified port
+            </summary>
+            <param name="port">The input port to query</param>
+            <returns>2 bytes, index 0 being the type, index 1 being the mode</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.ReadySIAsync(Lego.Ev3.Core.InputPort,System.Int32)">
+            <summary>
+            Read the SI value from the specified port in the specified mode
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode used to read the data</param>
+            <returns>The SI value</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.ReadyRawAsync(Lego.Ev3.Core.InputPort,System.Int32)">
+            <summary>
+            Read the raw value from the specified port in the specified mode
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode used to read the data</param>
+            <returns>The Raw value</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.ReadyPercentAsync(Lego.Ev3.Core.InputPort,System.Int32)">
+            <summary>
+            Read the percent value from the specified port in the specified mode
+            </summary>
+            <param name="port">The port to query</param>
+            <param name="mode">The mode used to read the data</param>
+            <returns>The percentage value</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.GetDeviceNameAsync(Lego.Ev3.Core.InputPort)">
+            <summary>
+            Get the name of the device attached to the specified port
+            </summary>
+            <param name="port">Port to query</param>
+            <returns>The name of the device</returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DirectCommand.GetModeNameAsync(Lego.Ev3.Core.InputPort,System.Int32)">
+            <summary>
+            Get the mode of the device attached to the specified port
+            </summary>
+            <param name="port">Port to query</param>
+            <param name="mode">Mode of the name to get</param>
+            <returns>The name of the mode</returns>
+        </member>
+        <member name="T:Lego.Ev3.Core.DummyCommunication">
+            <summary>
+            Dummy object for testing.  Does not actually connect or communicate with EV3 brick.
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.ICommunication">
+            <summary>
+            Interface for communicating with the EV3 brick
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.ICommunication.ConnectAsync">
+            <summary>
+            Connect to the EV3 brick.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.ICommunication.Disconnect">
+            <summary>
+            Disconnect from the EV3 brick.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.ICommunication.WriteAsync(System.Byte[])">
+            <summary>
+            Write a report to the EV3 brick.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="E:Lego.Ev3.Core.ICommunication.ReportReceived">
+            <summary>
+            Fired when a full report is ready to parse and process.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.DummyCommunication.ConnectAsync">
+            <summary>
+            Test Connect method.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Core.DummyCommunication.Disconnect">
+            <summary>
+            Test Disconnect method.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.DummyCommunication.WriteAsync(System.Byte[])">
+            <summary>
+            Test WriteAsync method.  (Writes formatted data to Debug stream).
+            </summary>
+            <param name="data">Byte array to be written.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Lego.Ev3.Core.DummyCommunication.ReportReceived">
+            <summary>
+            Event fired when a complete report is received from the EV3 brick.  In this dummy implementation, the event is never fired.
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.CommandType">
+            <summary>
+            The type of command being sent to the brick
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.CommandType.DirectReply">
+            <summary>
+            Direct command with a reply expected
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.CommandType.DirectNoReply">
+            <summary>
+            Direct command with no reply
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.CommandType.SystemReply">
+            <summary>
+             System command with a reply expected
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.CommandType.SystemNoReply">
+            <summary>
+            System command with no reply
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.Format">
+            <summary>
+            Format for sensor data.
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Format.Percent">
+            <summary>
+            Percentage
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Format.Raw">
+            <summary>
+            Raw
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Format.SI">
+            <summary>
+            International System of Units
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.Polarity">
+            <summary>
+            Polarity/direction to turn the motor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Polarity.Backward">
+            <summary>
+            Turn backward
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Polarity.Opposite">
+            <summary>
+            Turn in the opposite direction
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Polarity.Forward">
+            <summary>
+            Turn forward
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.InputPort">
+            <summary>
+            Ports which can receive input data
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.One">
+            <summary>
+            Port 1
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.Two">
+            <summary>
+            Port 2
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.Three">
+            <summary>
+            Port 3
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.Four">
+            <summary>
+            Port 4
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.A">
+            <summary>
+            Port A
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.B">
+            <summary>
+            Port B
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.C">
+            <summary>
+            Port C
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InputPort.D">
+            <summary>
+            Port D
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.OutputPort">
+            <summary>
+            Ports which can send output
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.OutputPort.A">
+            <summary>
+            Port A
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.OutputPort.B">
+            <summary>
+            Port B
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.OutputPort.C">
+            <summary>
+            Port C
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.OutputPort.D">
+            <summary>
+            Port D
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.OutputPort.All">
+            <summary>
+            Ports A,B,C and D simultaneously
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.DeviceType">
+            <summary>
+            List of devices which can be recognized as input or output devices
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtTouch">
+            <summary>
+            NXT Touch sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtLight">
+            <summary>
+            NXT Light sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtSound">
+            <summary>
+            NXT Sound sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtColor">
+            <summary>
+            NXT Color sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtUltrasonic">
+            <summary>
+            NXT Ultrasonic sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.NxtTemperature">
+            <summary>
+             NXT Temperature sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.LMotor">
+            <summary>
+            Large motor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.MMotor">
+            <summary>
+            Medium motor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Touch">
+            <summary>
+            EV3 Touch sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Color">
+            <summary>
+            EV3 Color sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Ultrasonic">
+            <summary>
+            EV3 Ultrasonic sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Gyroscope">
+            <summary>
+            EV3 Gyroscope sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Infrared">
+            <summary>
+            EV3 IR sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Initializing">
+            <summary>
+            Sensor is initializing
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Empty">
+            <summary>
+            Port is empty
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.WrongPort">
+            <summary>
+            Sensor is plugged into a motor port, or vice-versa
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.DeviceType.Unknown">
+            <summary>
+            Unknown sensor/status
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.BrickButton">
+            <summary>
+            Buttons on the face of the EV3 brick
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.None">
+            <summary>
+            No button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Up">
+            <summary>
+            Up button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Enter">
+            <summary>
+            Enter button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Down">
+            <summary>
+            Down button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Right">
+            <summary>
+            Right button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Left">
+            <summary>
+            Left button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Back">
+            <summary>
+            Back button
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.BrickButton.Any">
+            <summary>
+            Any button
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.LedPattern">
+            <summary>
+            Pattern to light up the EV3 brick's LED
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.Black">
+            <summary>
+            LED off
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.Green">
+            <summary>
+            Solid green
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.Red">
+            <summary>
+            Solid red
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.Orange">
+            <summary>
+            Solid orange
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.GreenFlash">
+            <summary>
+            Flashing green
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.RedFlash">
+            <summary>
+            Flashing red
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.OrangeFlash">
+            <summary>
+            Flashing orange
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.GreenPulse">
+            <summary>
+            Pulsing green
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.RedPulse">
+            <summary>
+            Pulsing red
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.LedPattern.OrangePulse">
+            <summary>
+            Pulsing orange
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.Color">
+            <summary>
+            UI colors
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Color.Background">
+            <summary>
+            Color of the background
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.Color.Foreground">
+            <summary>
+            Color of the foreground
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.FontType">
+            <summary>
+            Font types for drawing text to the screen
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.FontType.Small">
+            <summary>
+            Small font
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.FontType.Medium">
+            <summary>
+            Medium font
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.FontType.Large">
+            <summary>
+            Large font
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.TouchMode">
+            <summary>
+            NXT and EV3 Touch Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.TouchMode.Touch">
+            <summary>
+            On when pressed, off when released
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.TouchMode.Bumps">
+            <summary>
+            Running counter of number of presses
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.NxtLightMode">
+            <summary>
+            NXT Light Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtLightMode.Reflect">
+            <summary>
+            Amount of reflected light
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtLightMode.Ambient">
+            <summary>
+            Amoutn of ambient light
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.NxtSoundMode">
+            <summary>
+            NXT Sound Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtSoundMode.Decibels">
+            <summary>
+            Decibels
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtSoundMode.AdjustedDecibels">
+            <summary>
+            Adjusted Decibels
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.NxtColorMode">
+            <summary>
+            NXT Color Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Reflective">
+            <summary>
+            Reflected color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Ambient">
+            <summary>
+            Ambient color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Color">
+            <summary>
+            Specific color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Green">
+            <summary>
+            Amount of green
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Blue">
+            <summary>
+            Amount of blue
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtColorMode.Raw">
+            <summary>
+            Raw sensor value
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.NxtUltrasonicMode">
+            <summary>
+            NXT Ultrasonic Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtUltrasonicMode.Centimeters">
+            <summary>
+            Values in centimeter units
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtUltrasonicMode.Inches">
+            <summary>
+            Values in inch units
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.NxtTemperatureMode">
+            <summary>
+            NXT Temperature Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtTemperatureMode.Celsius">
+            <summary>
+            Values in Celsius units
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.NxtTemperatureMode.Fahrenheit">
+            <summary>
+            Values in Fahrenheit units
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.MotorMode">
+            <summary>
+            Motor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.MotorMode.Degrees">
+            <summary>
+            Values in degrees
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.MotorMode.Rotations">
+            <summary>
+            Values in rotations
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.MotorMode.Percent">
+            <summary>
+            Values in percentage
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.ColorMode">
+            <summary>
+            EV3 Color Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.Reflective">
+            <summary>
+            Reflected color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.Ambient">
+            <summary>
+            Ambient color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.Color">
+            <summary>
+            Specific color
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.ReflectiveRaw">
+            <summary>
+            Reflected color raw value
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.ReflectiveRgb">
+            <summary>
+            Reflected color RGB value
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorMode.Calibration">
+            <summary>
+            Calibration
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.UltrasonicMode">
+            <summary>
+            EV3 Ultrasonic Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.Centimeters">
+            <summary>
+            Values in centimeter units
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.Inches">
+            <summary>
+            Values in inch units
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.Listen">
+            <summary>
+            Listen mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.SiCentimeters">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.SiInches">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.DcCentimeters">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.UltrasonicMode.DcInches">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.GyroscopeMode">
+            <summary>
+            EV3 Gyroscope Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.GyroscopeMode.Angle">
+            <summary>
+            Angle
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.GyroscopeMode.Rate">
+            <summary>
+            Rate of movement
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.GyroscopeMode.Fas">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.GyroscopeMode.GandA">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.GyroscopeMode.Calibrate">
+            <summary>
+            Calibrate
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.InfraredMode">
+            <summary>
+            EV3 Infrared Sensor mode
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.Proximity">
+            <summary>
+            Proximity
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.Seek">
+            <summary>
+            Seek
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.Remote">
+            <summary>
+            EV3 remote control
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.RemoteA">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.SAlt">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.InfraredMode.Calibrate">
+            <summary>
+             Calibrate
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.ColorSensorColor">
+            <summary>
+            Values returned by the color sensor
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Transparent">
+            <summary>
+            Transparent
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Black">
+            <summary>
+            Black
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Blue">
+            <summary>
+            Blue
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Green">
+            <summary>
+            Green
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Yellow">
+            <summary>
+            Yellow
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Red">
+            <summary>
+            Red
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.White">
+            <summary>
+            White
+            </summary>
+        </member>
+        <member name="F:Lego.Ev3.Core.ColorSensorColor.Brown">
+            <summary>
+            Brown
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.Port">
+            <summary>
+            An input or output port on the EV3 brick
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(System.Byte)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.TouchMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.NxtLightMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.NxtSoundMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.NxtUltrasonicMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.NxtTemperatureMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.MotorMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.ColorMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.UltrasonicMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.GyroscopeMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="M:Lego.Ev3.Core.Port.SetMode(Lego.Ev3.Core.InfraredMode)">
+            <summary>
+            Set the connected sensor's mode
+            </summary>
+            <param name="mode">The requested mode.</param>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.Name">
+            <summary>
+            Name of port.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.Type">
+            <summary>
+            Device plugged into port.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.Mode">
+            <summary>
+            Device mode.  Some devices work in multiple modes.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.SIValue">
+            <summary>
+            Current International System of Units value associated with the Port.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.RawValue">
+            <summary>
+            Raw value associated with the Port.
+            </summary>
+        </member>
+        <member name="P:Lego.Ev3.Core.Port.PercentValue">
+            <summary>
+            Percentage value associated with the Port.
+            </summary>
+        </member>
+        <member name="E:Lego.Ev3.Core.Port.PropertyChanged">
+            <summary>
+            INotifyProperty event
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Core.SystemCommand">
+            <summary>
+            Direct commands for the EV3 brick
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Core.SystemCommand.WriteFileAsync(System.Byte[],System.String)">
+            <summary>
+            Write a file to the EV3 brick
+            </summary>
+            <param name="data">Data to write.</param>
+            <param name="devicePath">Destination path on the brick.</param>
+            <returns></returns>
+            <remarks>devicePath is relative from "lms2012/sys" on the EV3 brick.  Destination folders are automatically created if provided in the path.  The path must start with "apps", "prjs", or "tools".</remarks>
+        </member>
+        <member name="M:Lego.Ev3.Core.SystemCommand.CopyFileAsync(System.String,System.String)">
+            <summary>
+            Copy a local file to the EV3 brick
+            </summary>
+            <param name="localPath">Source path on the computer.</param>
+            <param name="devicePath">Destination path on the brick.</param>
+            <returns></returns>
+            <remarks>devicePath is relative from "lms2012/sys" on the EV3 brick.  Destination folders are automatically created if provided in the path.  The path must start with "apps", "prjs", or "tools".</remarks>
+        </member>
+        <member name="M:Lego.Ev3.Core.SystemCommand.CreateDirectoryAsync(System.String)">
+            <summary>
+            Create a directory on the EV3 brick
+            </summary>
+            <param name="devicePath">Destination path on the brick.</param>
+            <returns></returns>
+            <remarks>devicePath is relative from "lms2012/sys" on the EV3 brick.  Destination folders are automatically created if provided in the path.  The path must start with "apps", "prjs", or "tools".</remarks>
+        </member>
+        <member name="M:Lego.Ev3.Core.SystemCommand.DeleteFileAsync(System.String)">
+            <summary>
+            Delete file from the EV3 brick
+            </summary>
+            <param name="devicePath">Destination path on the brick.</param>
+            <returns></returns>
+            <remarks>devicePath is relative from "lms2012/sys" on the EV3 brick.  The path must start with "apps", "prjs", or "tools".</remarks>
+        </member>
+        <member name="T:Lego.Ev3.Desktop.BluetoothCommunication">
+            <summary>
+            Communicate to EV3 brick over Bluetooth
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.BluetoothCommunication.#ctor(System.String)">
+            <summary>
+            Initialize a BluetoothCommunication object.
+            </summary>
+            <param name="port">The COM port on which to connect.</param>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.BluetoothCommunication.ConnectAsync">
+            <summary>
+            Connect to the EV3 brick.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.BluetoothCommunication.Disconnect">
+            <summary>
+            Disconnect from the EV3 brick.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.BluetoothCommunication.WriteAsync(System.Byte[])">
+            <summary>
+            Write data to the EV3 brick.
+            </summary>
+            <param name="data">Byte array of data to send to the EV3 brick.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Lego.Ev3.Desktop.BluetoothCommunication.ReportReceived">
+            <summary>
+            Event fired when a complete report is received from the EV3 brick.
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Desktop.UsbCommunication">
+            <summary>
+            Communicate with EV3 brick over USB HID.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.UsbCommunication.ConnectAsync">
+            <summary>
+            Connect to the EV3 brick.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.UsbCommunication.Disconnect">
+            <summary>
+            Disconnect from the EV3 brick.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.UsbCommunication.WriteAsync(System.Byte[])">
+            <summary>
+            Write data to the EV3 brick.
+            </summary>
+            <param name="data">Byte array to send to the EV3 brick.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Lego.Ev3.Desktop.UsbCommunication.ReportReceived">
+            <summary>
+            Event fired when a complete report is received from the EV3 brick.
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Desktop.HidImports">
+            <summary>
+            Win32 import information for use with the Wiimote library
+            </summary>
+        </member>
+        <member name="T:Lego.Ev3.Desktop.NetworkCommunication">
+            <summary>
+            Communicate with EV3 brick over TCP
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.NetworkCommunication.#ctor(System.String)">
+            <summary>
+            Create a new NetworkCommunication object
+            </summary>
+            <param name="address">The IP address of the EV3 brick</param>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.NetworkCommunication.ConnectAsync">
+            <summary>
+            Connect to the EV3 brick.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.NetworkCommunication.Disconnect">
+            <summary>
+            Disconnect from the EV3 brick.
+            </summary>
+        </member>
+        <member name="M:Lego.Ev3.Desktop.NetworkCommunication.WriteAsync(System.Byte[])">
+            <summary>
+            Write data to the EV3 brick.
+            </summary>
+            <param name="data">Byte array to write to the EV3 brick.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Lego.Ev3.Desktop.NetworkCommunication.ReportReceived">
+            <summary>
+            Event fired when a complete report is received from the EV3 brick.
+            </summary>
+        </member>
+    </members>
+</doc>

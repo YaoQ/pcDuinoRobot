@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Simple Element Definitions -->
+  <xs:element name="Version" type="xs:string"/>
+  
+  <xs:element name="ActivityNameInt" type="xs:int"/>
+  <xs:element name="ActivityID" type="xs:int"/>
+  <xs:element name="GraphEdgeID" type="xs:int"/>
+  
+  <xs:element name="Left" type="xs:double"/>
+  <xs:element name="Top" type="xs:double"/>
+  <xs:element name="Right" type="xs:double"/>
+  <xs:element name="Bottom" type="xs:double"/>
+
+  <xs:element name="VariableName" type="xs:string"/>
+  <xs:element name="VariableType" type="xs:string"/>
+
+  <xs:element name="CustomActivityName" type="xs:string"/>
+
+  <!-- Attribute Definitions -->
+  <xs:attribute name="Name" type="xs:string" />
+  <xs:attribute name="Index" type="xs:int"/>
+  <xs:attribute name="IsFlipped" type="xs:boolean"/>
+  
+  <xs:attribute name="IsService" type="xs:boolean"/>
+  <xs:attribute name="ServiceSource" type="xs:string"/>
+
+  <!-- Complex Element Definitions -->
+  <xs:element name="PreviousActivities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActivityID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="Index" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="NextActivities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActivityID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="Index" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AlternateNextActivities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActivityID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="IncomingLines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GraphEdgeID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="Index" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="OutgoingLines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GraphEdgeID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="Index" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AlternateOutgoingLines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GraphEdgeID" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Location">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Left"/>
+        <xs:element ref="Top"/>
+        <xs:element ref="Right"/>
+        <xs:element ref="Bottom"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Value">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="Index" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Values">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Value" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Activity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActivityNameInt"/>
+        <xs:element ref="ActivityID"/>
+        
+        <xs:element ref="PreviousActivities" maxOccurs="unbounded"/>
+        <xs:element ref="NextActivities" maxOccurs="unbounded"/>
+        <xs:element ref="AlternateNextActivities"/>
+
+        <xs:element ref="IncomingLines" maxOccurs="unbounded"/>
+        <!-- Switch uses a linked list of lists of outgoing lines. -->
+        <xs:element ref="OutgoingLines" maxOccurs="unbounded"/>
+        <xs:element ref="AlternateOutgoingLines"/>
+
+        <xs:element ref="Location"/>
+
+        <!-- Now that values are wrapped in a single Values element, there should only ever be 1 of these. -->
+        <xs:element ref="Values"/>
+      </xs:sequence>
+      <!-- This name is for custom activities. -->
+      <xs:attribute ref="Name" use="optional"/>
+      <xs:attribute ref="IsFlipped" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ProgrammingPanel">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- The Variables element inside a ProgrammingPanel refers to Input Variables. It is optional, for backwards compatability. -->
+        <xs:element ref="Variables" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="Activity" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="Name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Variable">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VariableName"/>
+        <xs:element ref="VariableType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Variables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UsedCustomActivityNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="CustomActivityName" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Program">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Version"/>
+        <xs:element ref="ProgrammingPanel" maxOccurs="unbounded"/>
+        <xs:element ref="Variables"/>
+        <xs:element ref="UsedCustomActivityNames"/>
+      </xs:sequence>
+      <xs:attribute ref="IsService" use="optional"/>
+      <xs:attribute ref="ServiceSource" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>
