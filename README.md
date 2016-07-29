@@ -134,8 +134,10 @@ VIPLE代码如下图所示：
 1. 下载并安装[APP](https://github.com/YaoQ/pcDuinoRobot/tree/master/APP)
 2. 启动小车，并找到小车所创建的热点：**pcDuino-xxxx**
 3. 手机连接该WiFi热点
+
 ![](./picture/app1.png)
 4. 通过APP读取超声波传感器的数据，并可以控制小车的运行
+
 ![](./picture/app2.png)
 
 
