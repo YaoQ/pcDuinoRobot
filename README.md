@@ -130,7 +130,9 @@ VIPLE代码如下图所示：
 ![](picture/4.png) 
 
 ## Android APP控制小车
+
 我们开发了一个简易的APP，专门用于测试小车的基本功能。
+
 1. 下载并安装[APP](https://github.com/YaoQ/pcDuinoRobot/tree/master/APP)
 2. 启动小车，并找到小车所创建的热点：**pcDuino-xxxx**
 3. 手机连接该WiFi热点
