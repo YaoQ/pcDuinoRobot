@@ -138,6 +138,7 @@ VIPLE代码如下图所示：
 3. 手机连接该WiFi热点
 
 ![](./picture/app1.png)
+
 4. 通过APP读取超声波传感器的数据，并可以控制小车的运行
 
 ![](./picture/app2.png)
